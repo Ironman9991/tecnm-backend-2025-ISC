@@ -1,20 +1,25 @@
 package mx.tecnm.backend.api;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
-// Hello World hasta arriba como solicitaste
+    
+    // Hello World
     @GetMapping("/hello")
     public String hello() {
         return "Hello World!";
     }
 
-    // ✅ Primer producto - fiel a tu código
+    // Primer producto
     @GetMapping("/producto")
     public Producto getProducto() {
         Producto p = new Producto();
@@ -24,7 +29,7 @@ public class TestController {
         return p;
     }
 
-    // ✅ Segundo producto - fiel a tu código
+    // Segundo producto
     @GetMapping("/producto2")
     public Producto getProducto2() {
         Producto p1 = new Producto();
@@ -34,55 +39,95 @@ public class TestController {
         return p1;
     }
 
-    // ✅ Método para todos los productos
+    // Tercer producto
+    @GetMapping("/producto3")
+    public Producto getProducto3() {
+        Producto p2 = new Producto();
+        p2.nombre = "Sprite";
+        p2.precio = 15.0;
+        p2.codigoBarras = "789012";
+        return p2;
+    }
+
+
+    // Todos los productos
     @GetMapping("/todos")
     public List<Producto> getAllProductos() {
-        List<Producto> productos = new ArrayList<>();
-        
-        // Producto 1
         Producto p1 = new Producto();
         p1.nombre = "Coca cola";
         p1.precio = 18.5;
         p1.codigoBarras = "456789678";
-        productos.add(p1);
         
-        // Producto 2
         Producto p2 = new Producto();
         p2.nombre = "Pepsi";
         p2.precio = 67;
         p2.codigoBarras = "345678";
-        productos.add(p2);
         
-        // Producto 3
         Producto p3 = new Producto();
         p3.nombre = "Sprite";
         p3.precio = 15.0;
         p3.codigoBarras = "789012";
-        productos.add(p3);
         
-        return productos;
+        return Arrays.asList(p1, p2, p3);
     }
 
-    // ✅ Método para mostrar todo en la raíz
+    // Mostrar todo en la raíz (Hello World + Productos)
     @GetMapping("/")
-    public String mostrarTodo() {
-        return 
-            "=== HELLO WORLD ===\n" +
-            "Hello World!\n\n" +
-            
-            "=== PRODUCTO 1 ===\n" +
-            "Nombre: Coca cola\n" +
-            "Precio: $18.5\n" +
-            "Código Barras: 456789678\n\n" +
-            
-            "=== PRODUCTO 2 ===\n" +
-            "Nombre: Pepsi\n" +
-            "Precio: $67\n" +
-            "Código Barras: 345678\n\n" +
-            
-            "=== TODOS LOS PRODUCTOS ===\n" +
-            "1. Coca cola - $18.5 - 456789678\n" +
-            "2. Pepsi - $67 - 345678\n" +
-            "3. Sprite - $15.0 - 789012";
+    public Map<String, Object> mostrarTodo() {
+        Map<String, Object> respuesta = new HashMap<>();
+        
+        // Hello World
+        respuesta.put("mensaje", "Hello World!");
+        
+        // Productos
+        Producto p1 = new Producto();
+        p1.nombre = "Coca cola";
+        p1.precio = 18.5;
+        p1.codigoBarras = "456789678";
+        
+        Producto p2 = new Producto();
+        p2.nombre = "Pepsi";
+        p2.precio = 67;
+        p2.codigoBarras = "345678";
+        
+        Producto p3 = new Producto();
+        p3.nombre = "Sprite";
+        p3.precio = 15.0;
+        p3.codigoBarras = "789012";
+        
+        List<Producto> productos = Arrays.asList(p1, p2, p3);
+        respuesta.put("productos", productos);
+        
+        return respuesta;
+    }
+
+    @GetMapping("/productos/{id}")
+    public ResponseEntity<Producto> buscarPorId(@PathVariable int id) {
+        if(id < 1 || id > 3){
+            return ResponseEntity.notFound().build();
+        }   
+
+        Producto[] productos = new Producto[4]; 
+        
+        Producto p1 = new Producto();
+        p1.nombre = "Coca cola";
+        p1.precio = 18.5;
+        p1.codigoBarras = "456789678";
+        productos[1] = p1; // Posición 1
+
+        Producto p2 = new Producto();
+        p2.nombre = "Pepsi";
+        p2.precio = 67;
+        p2.codigoBarras = "345678";
+        productos[2] = p2; // Posición 2
+
+        Producto p3 = new Producto();
+        p3.nombre = "Sprite";
+        p3.precio = 15.0;
+        p3.codigoBarras = "789012";
+        productos[3] = p3; // Posición 3
+
+        Producto resultado = productos[id];
+        return ResponseEntity.ok(resultado);
     }
 }

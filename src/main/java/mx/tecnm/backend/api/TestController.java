@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
     
-    // Hello World
     @GetMapping("/hello")
     public String hello() {
         return "Hello World!";
     }
 
-    // Primer producto
+
     @GetMapping("/producto")
     public Producto getProducto() {
         Producto p = new Producto();
@@ -29,7 +28,6 @@ public class TestController {
         return p;
     }
 
-    // Segundo producto
     @GetMapping("/producto2")
     public Producto getProducto2() {
         Producto p1 = new Producto();
@@ -39,7 +37,6 @@ public class TestController {
         return p1;
     }
 
-    // Tercer producto
     @GetMapping("/producto3")
     public Producto getProducto3() {
         Producto p2 = new Producto();
@@ -50,7 +47,6 @@ public class TestController {
     }
 
 
-    // Todos los productos
     @GetMapping("/todos")
     public List<Producto> getAllProductos() {
         Producto p1 = new Producto();
@@ -71,15 +67,15 @@ public class TestController {
         return Arrays.asList(p1, p2, p3);
     }
 
-    // Mostrar todo en la raíz (Hello World + Productos)
+    
     @GetMapping("/")
     public Map<String, Object> mostrarTodo() {
         Map<String, Object> respuesta = new HashMap<>();
         
-        // Hello World
+        
         respuesta.put("mensaje", "Hello World!");
         
-        // Productos
+        
         Producto p1 = new Producto();
         p1.nombre = "Coca cola";
         p1.precio = 18.5;
@@ -113,19 +109,19 @@ public class TestController {
         p1.nombre = "Coca cola";
         p1.precio = 18.5;
         p1.codigoBarras = "456789678";
-        productos[1] = p1; // Posición 1
+        productos[1] = p1; 
 
         Producto p2 = new Producto();
         p2.nombre = "Pepsi";
         p2.precio = 67;
         p2.codigoBarras = "345678";
-        productos[2] = p2; // Posición 2
+        productos[2] = p2; 
 
         Producto p3 = new Producto();
         p3.nombre = "Sprite";
         p3.precio = 15.0;
         p3.codigoBarras = "789012";
-        productos[3] = p3; // Posición 3
+        productos[3] = p3; 
 
         Producto resultado = productos[id];
         return ResponseEntity.ok(resultado);

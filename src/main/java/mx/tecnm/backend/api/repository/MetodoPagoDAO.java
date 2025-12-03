@@ -12,12 +12,13 @@ public class MetodoPagoDAO {
    private JdbcClient conexion;
    
     public List<mx.tecnm.backend.api.models.MetodoPago.metodopago> consultarMetodosPago() {
-     String sql = "SELECT id, nombre, comision FROM metodos_pago";
+     //String sql = "SELECT id, nombre, comision FROM metodos_pago";
+     String sql = "SELECT id, nombre FROM metodos_pago";
      return conexion.sql(sql)
         .query((rs, rowNum) -> new mx.tecnm.backend.api.models.MetodoPago.metodopago(
             rs.getInt("id"),
-            rs.getString("nombre"),
-            rs.getDouble("comision")))
+            rs.getString("nombre")))
+            //rs.getDouble("comision")))
         .list();
             
     }

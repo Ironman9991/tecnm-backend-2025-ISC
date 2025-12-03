@@ -16,11 +16,11 @@ public class PedidoDAO {
    private JdbcClient conexion;
 
     public List<pedido> consultarPedidos() {
-     String sql = "SELECT id, numero, importe_productos FROM pedidos";
+     String sql = "SELECT id, numero_envio, importe_productos FROM pedidos";
      return conexion.sql(sql)
         .query((rs, rowNum) -> new Pedido.pedido(
             rs.getInt("id"),
-            rs.getString("numero"),
+            rs.getString("numero_envio"),
             rs.getString("importe_productos")))
         .list();
 

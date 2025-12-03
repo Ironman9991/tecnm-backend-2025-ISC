@@ -16,7 +16,7 @@ public class DetallePedidoDAO {
    private JdbcClient conexion;
 
     public List<detallepedido> consultarDetallePedidos() {
-     String sql = "SELECT id, cantidad, precio FROM detalles_pedido";
+     String sql = "SELECT id, cantidad, precio FROM detalles_pedidos";
      return conexion.sql(sql)
         .query((rs, rowNum) -> new DetallePedido.detallepedido(
             rs.getInt("id"),

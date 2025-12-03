@@ -15,13 +15,13 @@ public class EnvioDAO {
     @Autowired
    private JdbcClient conexion;
    public List<envio> consultarEnvios() {
-     String sql = "SELECT id, fecha, numero_seguimiento, estado FROM envios";
+     String sql = "SELECT id, fecha_envio, numero_seguimiento, estado_envio FROM envios";
      return conexion.sql(sql)
         .query((rs, rowNum) -> new Envio.envio(
             rs.getInt("id"),
-            rs.getString("fecha"),
+            rs.getObject("fecha_envio", java.time.OffsetDateTime.class).toString(),
             rs.getString("numero_seguimiento"),
-            rs.getString("estado")))
+            rs.getString("estado_envio")))
         .list();
 
     }

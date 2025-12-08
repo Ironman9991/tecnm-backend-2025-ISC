@@ -15,7 +15,7 @@ public class CategoriaDAO {
     private JdbcClient conexion;
 
     public List<Categoria> consultarCategorias() {
-        String sql = "SELECT id, nombre FROM categorias ORDER BY id";
+        String sql = "SELECT id, nombre FROM categorias WHERE activo = TRUE";
         return conexion.sql(sql)
             .query((rs, rowNum) -> new Categoria(
                 rs.getInt("id"),
@@ -34,7 +34,7 @@ public class CategoriaDAO {
     }
 
     public List<Categoria> busquedaID(int id) {
-        String sql = "SELECT id, nombre FROM categorias WHERE id = ?";
+        String sql = "SELECT id, nombre FROM categorias WHERE id = ? AND activo = TRUE";
         return conexion.sql(sql)
             .param(id)
             .query((rs, rowNum) -> new Categoria(
@@ -55,7 +55,7 @@ public class CategoriaDAO {
     }
 
     public List<Categoria> desactivar(int id) {
-        String sql = "DELETE FROM categorias WHERE id = ? RETURNING id, nombre";
+        String sql = "UPDATE categorias SET activo = FALSE WHERE id = ? RETURNING id, nombre";
         return conexion.sql(sql)
             .param(id)
             .query((rs, rowNum) -> new Categoria(
@@ -64,3 +64,7 @@ public class CategoriaDAO {
             .list();
     }
 }
+
+
+
+// Esto nomas es pa que detecte cambios :v

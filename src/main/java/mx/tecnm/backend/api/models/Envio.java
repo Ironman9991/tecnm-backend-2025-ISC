@@ -1,6 +1,12 @@
 package mx.tecnm.backend.api.models;
 
-public class Envio {
- public record envio(int id, String fecha_envio, String numero_seguimiento, String estado_envio) {
- }
-}
+import java.time.OffsetDateTime;
+
+public record Envio(
+    int id,
+    int pedidos_id,
+    int domicilios_id,  // En la imagen dice "domicilio_s_id" pero probablemente es "domicilios_id"
+    OffsetDateTime fecha_envio,
+    String estado_envio,
+    String numero_seguimiento
+){}

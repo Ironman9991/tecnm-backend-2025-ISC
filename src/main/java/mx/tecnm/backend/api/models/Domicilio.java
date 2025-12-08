@@ -1,6 +1,12 @@
 package mx.tecnm.backend.api.models;
 
-public class Domicilio {
-    public record domicilio(int id, String calle, String numero, String estado) {
- }
-}
+public record Domicilio(
+    int id, 
+    String calle, 
+    String numero, 
+    String colonia, 
+    String cp,  // "eg" en la imagen parece ser "cp" (código postal)
+    String estado, 
+    String ciudad, 
+    int usuarios_id
+) {}

@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 public record Envio(
     int id,
     int pedidos_id,
-    int domicilios_id,  // En la imagen dice "domicilio_s_id" pero probablemente es "domicilios_id"
+    int domicilios_id,  
     OffsetDateTime fecha_envio,
     String estado_envio,
     String numero_seguimiento
